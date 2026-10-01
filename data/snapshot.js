@@ -1,11 +1,11 @@
 window.SNAPSHOT = {
-  "updated": "2026-09-29T01:07:47.109Z",
+  "updated": "2026-10-01T15:44:09.214Z",
   "games": {},
   "groups": {
     "322532132": {
       "groupId": 322532132,
       "name": "ACT2STUDIOS",
-      "memberCount": 14,
+      "memberCount": 13,
       "icon": "assets/img/live/group-322532132.png",
       "iconUrl": "https://tr.rbxcdn.com/180DAY-f3572173e7fb8eaa58781a5dba3e85d7/150/150/Image/Png/noFilter",
       "url": "https://www.roblox.com/communities/322532132"
