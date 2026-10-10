@@ -18,6 +18,11 @@ const collect = (attr, parse) => [
 const placeIds = collect("data-roblox", placeIdFrom);
 const groupIds = collect("data-roblox-group", idFrom);
 const userIds = collect("data-discord-user", idFrom);
+const userGuilds = Object.fromEntries(
+  [...html.matchAll(/<[^>]*\sdata-discord-user="(\d+)"[^>]*>/g)].map((m) => [
+    m[1], idFrom((m[0].match(/\sdata-discord-avatar-guild="(\d+)"/) || [])[1] || ""),
+  ]),
+);
 const guildIds = collect("data-discord-guild", idFrom);
 
 const dataDir = path.join(root, "data");
@@ -191,14 +196,27 @@ async function discordUsers() {
   const out = {};
   for (const id of userIds) {
     const o = old[id];
-    const u = await keep(`discord user ${id}`, () => getJson(`https://discord.com/api/v10/users/${id}`, discordHeaders), null);
+    const guildId = userGuilds[id];
+    const member = guildId ? await keep(
+      `discord member ${guildId}/${id}`,
+      () => getJson(`https://discord.com/api/v10/guilds/${guildId}/members/${id}`, discordHeaders),
+      null,
+    ) : null;
+    if (guildId && !member && o) {
+      out[id] = o;
+      continue;
+    }
+    const u = member?.user || await keep(`discord user ${id}`, () => getJson(`https://discord.com/api/v10/users/${id}`, discordHeaders), null);
     if (!u) {
       if (o) out[id] = o;
       continue;
     }
-    const avatarUrl = u.avatar ? `https://cdn.discordapp.com/avatars/${id}/${u.avatar}.png?size=256` : defaultAvatar(id, u.discriminator);
+    const avatarUrl = member?.avatar
+      ? `https://cdn.discordapp.com/guilds/${guildId}/users/${id}/avatars/${member.avatar}.png?size=256`
+      : u.avatar ? `https://cdn.discordapp.com/avatars/${id}/${u.avatar}.png?size=256` : defaultAvatar(id, u.discriminator);
     out[id] = {
       id,
+      guildId: guildId || null,
       avatar: await keep(`avatar for ${id}`, () => mirror(avatarUrl, `discord-${id}.png`, o?.avatarUrl), o?.avatar ?? null),
       avatarUrl,
     };

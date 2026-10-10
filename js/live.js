@@ -247,7 +247,7 @@
   function paintUsers() {
     for (const el of $$("[data-discord-user]")) {
       const u = state.users[el.dataset.discordUser];
-      if (u) setImage($(".member__avatar", el), u.avatar);
+      if (u?.avatar) setImage($(".member__avatar", el), `${u.avatar}?v=${encodeURIComponent(u.avatarUrl || "")}`);
     }
   }
 
