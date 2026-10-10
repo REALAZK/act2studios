@@ -61,7 +61,7 @@ const $$ = (s, root = document) => [...root.querySelectorAll(s)];
       if (on) shown++;
     }
     chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.filter === team)));
-    if (count) count.textContent = `${shown} open ${shown === 1 ? "role" : "roles"}`;
+    if (count) count.textContent = `${shown} ${shown === 1 ? "area" : "areas"}`;
   }
 
   chips.forEach((c) => c.addEventListener("click", () => apply(c.dataset.filter)));
