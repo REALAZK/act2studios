@@ -1,5 +1,5 @@
 window.SNAPSHOT = {
-  "updated": "2026-11-10T03:42:56.815Z",
+  "updated": "2026-11-16T06:07:35.222Z",
   "games": {},
   "groups": {
     "322532132": {
@@ -34,7 +34,7 @@ window.SNAPSHOT = {
       "id": "1363818531115761684",
       "guildId": "1552691380378275983",
       "avatar": "assets/img/live/discord-1363818531115761684.png",
-      "avatarUrl": "https://cdn.discordapp.com/avatars/1363818531115761684/6f84f8866ff2c943aa1178ed7a2590f0.png?size=256"
+      "avatarUrl": "https://cdn.discordapp.com/avatars/1363818531115761684/1e7a0a53a384086bf9ee1ac6a0be064b.png?size=256"
     }
   },
   "discordGuilds": {}
